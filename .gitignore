@@ -1,0 +1,29 @@
+# Node / TypeScript (Project 1 and other TS projects)
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+npm-debug.log*
+pnpm-debug.log*
+
+# Python (Project 5 RAG and other Python projects)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Secrets and environment
+.env
+.env.*
+!.env.example
+
+# Run results (regenerable; don't commit raw runs)
+01-prompt-lab/results/*.jsonl
+01-prompt-lab/results/*.csv
+!01-prompt-lab/results/.gitkeep
+
+# System
+.DS_Store
+.ipynb_checkpoints/

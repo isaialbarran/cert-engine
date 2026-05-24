@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cert-engine/question.schema.json",
+  "title": "PracticeQuestion",
+  "description": "A multiple-choice practice question. Cert-agnostic: the certification and objective are input fields, not hardcoded.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "cert_id", "objective_id", "stem", "options", "correct_option_id", "rationale"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the question."
+    },
+    "cert_id": {
+      "type": "string",
+      "description": "Certification identifier (input). E.g. 'comptia-secplus-sy0-701'."
+    },
+    "objective_id": {
+      "type": "string",
+      "description": "Identifier of the official objective the question belongs to (input). E.g. '1.2'."
+    },
+    "objective_text": {
+      "type": "string",
+      "description": "Text of the official (public) objective so the validator can check anchoring (R3)."
+    },
+    "stem": {
+      "type": "string",
+      "description": "The question stem."
+    },
+    "options": {
+      "type": "array",
+      "minItems": 3,
+      "description": "Answer options.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "text"],
+        "properties": {
+          "id": { "type": "string", "description": "Option label, e.g. 'A'." },
+          "text": { "type": "string" }
+        }
+      }
+    },
+    "correct_option_id": {
+      "type": "string",
+      "description": "Id of the correct option. Must exist in options."
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Explanation of why the correct answer is correct."
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["easy", "medium", "hard"],
+      "description": "Optional. Estimated difficulty."
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$id": "cert-engine/rules.json",
+  "version": "0.1",
+  "description": "Cert-agnostic catalog of question validation rules. Versioned: changing a rule is a contract change.",
+  "rules": [
+    {
+      "id": "R1",
+      "name": "Well-formed",
+      "severity": "critical",
+      "check": "Has a non-empty stem, >=3 options, exactly one option marked correct, and a non-empty rationale."
+    },
+    {
+      "id": "R2",
+      "name": "Single defensible answer",
+      "severity": "critical",
+      "check": "Only one option is defensibly correct; the others are unambiguously incorrect given the objective."
+    },
+    {
+      "id": "R3",
+      "name": "Anchored to objective",
+      "severity": "critical",
+      "check": "The question evaluates the declared objective_id (using objective_text), not another topic."
+    },
+    {
+      "id": "R4",
+      "name": "No leakage / protected material",
+      "severity": "critical",
+      "check": "Does not reproduce real exam questions or protected vendor text. Original material."
+    },
+    {
+      "id": "R5",
+      "name": "Plausible distractors",
+      "severity": "quality",
+      "check": "Distractors are believable to someone who has not mastered the topic; they are not absurd or filler."
+    },
+    {
+      "id": "R6",
+      "name": "Wording quality",
+      "severity": "quality",
+      "check": "No confusing negations, no 'all/none of the above' as a crutch, no grammatical tells that give away the answer, no ambiguity."
+    }
+  ],
+  "overall_logic": "FAIL if any critical rule fails. REVIEW if all critical rules pass but any quality rule fails. PASS if all pass."
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cert-engine/verdict.schema.json",
+  "title": "ValidationVerdict",
+  "description": "Structured verdict produced by the validator for a question. This is the output contract the prompt MUST respect.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["question_id", "overall", "rules"],
+  "properties": {
+    "question_id": {
+      "type": "string",
+      "description": "id of the evaluated question."
+    },
+    "overall": {
+      "type": "string",
+      "enum": ["PASS", "FAIL", "REVIEW"],
+      "description": "PASS if every critical rule passes and there are no quality flags. FAIL if any critical rule (R1-R4) fails. REVIEW if only quality rules (R5-R6) fail."
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "description": "Result for each rule R1-R6.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["rule_id", "passed", "severity", "reason"],
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "enum": ["R1", "R2", "R3", "R4", "R5", "R6"]
+          },
+          "passed": { "type": "boolean" },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "quality"]
+          },
+          "reason": {
+            "type": "string",
+            "description": "Brief justification for the verdict on this rule."
+          }
+        }
+      }
+    }
+  }
+}
